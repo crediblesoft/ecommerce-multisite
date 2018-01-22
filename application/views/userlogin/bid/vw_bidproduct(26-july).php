@@ -1,0 +1,150 @@
+
+<div class="col-sm-9">
+    <div class="row">
+                <div class="">
+                    <div class="contant-head">
+                         <h4> <span class="glyphicon glyphicon-th" aria-hidden="true"></span> Manage Product Bid</h4>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contant-body1">
+                <div class="col-sm-12">
+                    <div class="row">
+                    <div class="table-responsive">
+                        <table class="table table-bordered cus-table-bordered">
+                            <thead class="cus-thead">
+                                <tr>
+                                    <td>Date</td>
+                                    <td>Product</td>
+                                    <td>Price</td>
+                                    <td>won</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php 
+                                if($bidproduct['res']){ 
+                                    $currentdate=date('Y-m-d');
+                                    //echo $currentdate;
+                                foreach($bidproduct['rows'] as $productlist){
+                                  //echo "<br/>aa".$productlist->bid_end_date;
+                                    $bid_declear_date = new DateTime($productlist->bid_end_date);
+                                    $bid_declear_date->modify('+1 day');
+                            ?>    
+                                <tr>
+                                    <td><?=$productlist->add_date?></td>
+                                    <td><a href="<?=BASE_URL?>bid/porductdetails/<?=$productlist->prodId?>"><?=$productlist->prod_name?></a></td>
+                                    
+                                    <td>$<?=$productlist->price?></td>
+                                    <?php if($currentdate > $productlist->bid_end_date ){ ?>
+                                    <td><a href="javascript:void(0)" id="<?=$productlist->prodId?>" class="winner" data-target="#buyerdetails" data-toggle="modal">win</a></td>
+                                    <?php }else{ ?>
+                                    <td><a href="javascript:void(0)" id="<?=$bid_declear_date->format('Y-m-d')?>" class="winner1" data-target="#buyerdetails" data-toggle="modal">win</a></td>
+                                    <?php } ?>
+                                </tr>
+                                <?php }}else{ ?>
+                                <tr>
+                                    <td colspan="4"> <p class="text-danger">No Record Found</p></td>
+                                </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                           <?php echo $links; ?>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+            </div>
+    
+    
+            
+</div>
+
+</div>
+</div>
+
+
+
+<!-- Modal -->
+<div id="buyerdetails" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Product Winner Details</h4>
+      </div>
+        <div class="modal-body">
+          <table class="table table-bordered" id="userdata">
+              
+          </table>
+      </div>
+      <div class="modal-footer"> 
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+    $(document).ready(function(){
+
+        $(".winner1").click(function(){
+            var id=$(this).prop('id');
+            
+            $("#userdata").empty().html("<tr><td>Product winner declare on "+id+"</td></tr>");
+        });
+        
+        $(".winner").click(function(){
+            var id=$(this).prop('id');
+            var tabledata="";
+            $.post("<?=BASE_URL?>product/getwinner",{id:id},function(data,status){        
+                var obj = jQuery.parseJSON(data);
+                //console.log(obj.data[0].price);
+                if(obj.res){
+                    var user=obj.data[0];
+                    tabledata+="<tr>";
+                    tabledata+="<td> Username </td>";
+                    tabledata+="<td>"+user.username+"</td>";
+                    tabledata+="<tr>";
+                    
+                    tabledata+="<tr>";
+                    tabledata+="<td> Mobile </td>";
+                    tabledata+="<td>"+user.mobile_no+"</td>";
+                    tabledata+="<tr>";
+                    
+                    tabledata+="<tr>";
+                    tabledata+="<td> Name </td>";
+                    tabledata+="<td>"+user.f_name+" "+user.l_name+"</td>";
+                    tabledata+="<tr>";
+                    
+                    tabledata+="<tr>";
+                    tabledata+="<td> Email </td>";
+                    tabledata+="<td>"+user.email_id+"</td>";
+                    tabledata+="<tr>";
+                    
+                    tabledata+="<tr>";
+                    tabledata+="<td> Address </td>";
+                    tabledata+="<td>"+user.address1+"</td>";
+                    tabledata+="<tr>";
+                    
+                    tabledata+="<tr>";
+                    tabledata+="<td> Price </td>";
+                    tabledata+="<td> $"+user.price+"</td>";
+                    tabledata+="<tr>";
+  
+                }else{
+                    tabledata+="<tr>";
+                    tabledata+="<td> Data Not Found!! </td>";
+                    tabledata+="<tr>";
+                }
+                $("#userdata").html(tabledata);
+                
+            });
+        });
+    });
+</script> 

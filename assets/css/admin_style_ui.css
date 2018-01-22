@@ -1,0 +1,87 @@
+@import url(fonts.css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic);
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 29 Dec, 2015, 10:23:58 AM
+    Author     : Neeraj
+*/
+
+.cus_topic_main{
+    background: #F7F7F7;
+}
+
+.cus_topic_detail_head{
+    color:#367FA9;
+    font-size: 20px;
+   font-family: "Source Sans Pro",sans-serif;
+}
+
+.cus_topic_detail_outerhead{
+    padding:10px 10px;
+}
+
+.custom_topic_detail_content p{
+    font-size: 16px !important;
+}
+
+
+.line4{
+    border-bottom:3px solid #EBEBEB;
+    width:103%;     
+}
+
+.cus_topic_detail_footer{
+    padding-bottom: 10px;
+    font-size: 18px;
+}
+
+.cus_topic_detail_footer_inner{
+    padding-bottom: 10px;
+    font-size: 18px;
+    color:#5C5C5C;
+}
+
+.cus_topic_detail_footer_inner a{
+    color:#5C5C5C;
+}
+
+.cus_topic_detail_head1{
+    color:#5C5C5C;
+    font-size: 20px;
+    font-family: "Source Sans Pro",sans-serif;
+}
+
+
+.cus_topic_detail_head2{
+    color:#367FA9;
+    font-size: 18px;
+    //font-family: Lato Bold;
+}
+
+.cus_topic_detail_head2 a{
+    color:#367FA9;
+}
+
+.custom_topic_detail_content1 p{
+    font-size: 16px !important;
+    color:#797979;
+}
+
+.line1{
+    border-top: 1px solid #D1D1D1;
+    width: 100%;
+}
+
+.user_last_login{font-size: 20px;}
+.vw_username{font-size: 20px;}
+
+//Kundan Css Start
+.tbl-boder-none td, .tbl-boder-none th {border: none!important;}
+.campaign-donate-detail{ background: none repeat scroll 0 0 rgb(60, 141, 188);font-size: 13px;padding: 5px;text-transform: uppercase;border: 1px solid rgb(62, 135, 82) !important;color: rgb(255, 255, 255); padding: 14px !important;text-align: center;}
+.campaign-img-div {display: inline-flex;margin: auto;max-height: 166px;width: 100%;}
+.cam-vw-detail-img {margin-bottom: auto;margin-top: auto;max-height: 166px;}
+
+

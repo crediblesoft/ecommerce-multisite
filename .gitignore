@@ -5,4 +5,5 @@ index_DDB010118.php
 index(8-july).php
 error_log
 htaccess_DDB010218
-application/config/database
+/application/config/database
+/assets/image

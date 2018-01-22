@@ -1,0 +1,487 @@
+<style> 
+    .search_form_display{ display: none !important; }
+</style>
+<section class="content-header">
+    <h1>
+     Manage Newsletter
+     <small>view</small>
+    </h1>
+<!--    <ol class="breadcrumb">
+     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+     <li class="active">Dashboard</li>
+    </ol>-->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">    
+        <div class="col-md-12">
+          <div class="box">
+            <div class="box-header with-border">
+              <!--<h3 class="box-title"></h3>-->   
+<!--              <span class="text-danger" id="error_search"></span>
+              <form class="form-inline" role="form" action="<?=BASE_URL?>admin/forum/search" method="get">
+                    <div class="form-group">
+                      <label for="email">Search By:</label>
+                      <select class="form-control" name="searchby" id="searchby">
+                          <option value="">----Please Select----</option>
+                          <option value="category" <?php if($this->input->get('searchby')=='category'){echo "selected";} ?> >Category</option>
+                      </select>
+                    </div> &nbsp;
+                    
+                    
+                    <div class="form-group"> &nbsp;
+                      <label for="pwd" class="sr-only" >Product Name</label>
+                      <select class="form-control search_form_display" id="usercategory" name="val" disabled="">
+                          <option value="">----Please Select----</option>
+                      </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-default" id="search">Search</button>
+                   </form> -->
+                <div class="pull-right">
+                    <!--<a href="javascript:void(0)" class="btn btn-warning btn-sm featured" id="">Active</a>
+                    <a href="javascript:void(0)" class="btn btn-primary btn-sm un_featured" id="">In-Active</a>-->
+                    <a href="javascript:void(0)" class="btn btn-success btn-sm <?php if($this->session->userdata(ADMIN_SESS.'admin_type')!='1' && $this->session->userdata(ADMIN_SESS.'Manage Newsletter_enable')!='1'){echo '" disabled ';}?> send" id="">Send</a>
+                    <a href="javascript:void(0)" class="btn btn-danger btn-sm <?php if($this->session->userdata(ADMIN_SESS.'admin_type')!='1' && $this->session->userdata(ADMIN_SESS.'Manage Newsletter_modifiable')!='1'){echo '" disabled ';}?> delete" id="">Delete</a>
+                </div>
+                
+                
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form class="form-horizontal" role="form" enctype = 'multipart/form-data' id="sendmail" method="post" action="<?=BASE_URL?>admin/newsletter/send">  
+                  <div class="form-group">
+                        <div class="col-sm-2"><label class="control-label " for="image">Attach file</label></div>
+                      <div class="col-sm-10">          
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <span class="btn btn-primary btn-file">
+                                        Browse… <input name="file" id="file" type="file">
+                                    </span>
+                                </span>
+                                  <input class="form-control" id="image" readonly="" type="text">
+
+                            </div>
+                          <span class="text-danger" id="image1_error">(Max File Size 4MB Allowed)</span>
+                      </div>
+                      <span class="text-danger" id="image_error"></span>
+                    </div>
+              <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th style="width: 10px">#</th>
+                        <th style="width: 10px"><input type="checkbox" id="select-all">&nbsp;</th>
+                        <th width="">Email</th>
+                    </tr>
+                    
+                    <?php //print_R($forumlist); 
+                      if($newsletters['res']){$i=1; foreach($newsletters['rows'] as $newsletter){ ?>
+               <tr>
+                    <td><?=$i?>.</td>
+                    <td><input type="checkbox" value="<?=$newsletter->id?>" class="innercheckbox" name="id[]"></td>
+                    <td><?=$newsletter->email?></td>
+               </tr>
+              <?php $i++;} ?>
+               
+               <tr>
+                    <td colspan="11">
+                        <div class="pull-right">
+                            <!--<a href="javascript:void(0)" class="btn btn-warning btn-sm featured" id="">Active</a>
+                            <a href="javascript:void(0)" class="btn btn-primary btn-sm un_featured" id="">In-Active</a>-->
+                            <a href="javascript:void(0)" class="btn btn-success btn-sm <?php if($this->session->userdata(ADMIN_SESS.'admin_type')!='1' && $this->session->userdata(ADMIN_SESS.'Manage Newsletter_enable')!='1'){echo '" disabled ';}?> send" id="">Send</a>
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm <?php if($this->session->userdata(ADMIN_SESS.'admin_type')!='1' && $this->session->userdata(ADMIN_SESS.'Manage Newsletter_modifiable')!='1'){echo '" disabled ';}?> delete" id="">Delete</a>
+                        </div>   
+                    </td>
+                </tr>
+                <?php }else{ ?>
+                <tr>
+                    <td colspan="11"><p class="text-danger">No record found.</p></td>
+                </tr>
+                <?php } ?>
+               
+                </tbody>
+              </table>
+              </form> 
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer clearfix">
+              <ul class="pagination pagination-sm no-margin pull-right">
+               <?=$links?>
+              </ul>
+            </div>
+          </div>
+          <!-- /.box -->
+
+        </div>
+        
+    </div>    
+</section>
+
+
+
+<!-- Modal -->
+<div id="un_che_sendmsg_user_model" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Send Mail</h4>
+      </div>
+      <div class="modal-body">
+          <h4 id="un_che_sendmsg_user_deletemsg"></h4>
+      </div>
+      <div class="modal-footer">
+          
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="featured_user_model" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Active Product</h4>
+      </div>
+      <div class="modal-body">
+          <h4 id="featured_user_deletemsg"></h4>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-success confirm" id="cnf2featured">Confirm</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div id="un_che_featured_user_model" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Active Product</h4>
+      </div>
+      <div class="modal-body">
+          <h4 id="un_che_featured_user_deletemsg"></h4>
+      </div>
+      <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div id="un_featured_user_model" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">In-Active Product</h4>
+      </div>
+      <div class="modal-body">
+          <h4 id="un_featured_user_deletemsg"></h4>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-success confirm" id="cnf2un_featured">Confirm</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div id="un_che_un_featured_user_model" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">In-Active Product</h4>
+      </div>
+      <div class="modal-body">
+          <h4 id="un_che_un_featured_user_deletemsg"></h4>
+      </div>
+      <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div id="delete_user_model" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Delete Email</h4>
+      </div>
+      <div class="modal-body">
+          <h4 id="delete_user_deletemsg"></h4>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-success confirm" id="cnf2delete">Confirm</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div id="un_che_delete_user_model" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Delete Email</h4>
+      </div>
+      <div class="modal-body">
+          <h4 id="un_che_delete_user_deletemsg"></h4>
+      </div>
+      <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<script> 
+    
+    $(document).on('change', '.btn-file :file', function() {
+        var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+      });
+
+      $(document).ready( function() {
+          $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+
+              var input = $(this).parents('.input-group').find(':text'),
+                  log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+              if( input.length ) {
+                  input.val(log);
+              } else {
+                  if( log ) alert(log);
+              }
+
+          });
+      });
+    
+    
+    $(document).ready(function(){
+        $('#select-all').click(function(event) {   
+            if(this.checked) {
+                $(".innercheckbox").prop("checked",true);
+            }else{
+                $(".innercheckbox").prop("checked",false);
+            }
+        });
+        
+        $(".featured").click(function(){
+            if(!$(".innercheckbox").is(':checked')){
+                $("#un_che_featured_user_deletemsg").html("Please select at least one category.");
+                $("#un_che_featured_user_model").modal("show");
+            }else{
+                 $("#featured_user_deletemsg").html("Do you want to active selected category(ies)?");
+                 $("#featured_user_model").modal("show");
+            }
+        });
+        
+        $(document).on("click","#cnf2featured",function(){
+            var selectedmail=[];
+            $('input:checkbox.innercheckbox').each(function () {
+                var sThisVal = (this.checked ? $(this).val() : "");
+                if(sThisVal!=""){
+                    selectedmail.push(sThisVal);
+                }
+            });
+            //alert(selectedmail.length);
+            if(selectedmail.length > 0){
+            $.post("<?=BASE_URL?>admin/forum/activecat",{selectedmail:selectedmail},function(data,status){
+                var obj= $.parseJSON(data);
+            if(obj.status){
+                    $("#featured_user_deletemsg").empty().append(obj.message).addClass("alert alert-success fade in");
+                        setTimeout(function(){
+                            window.location.reload();
+                        }, 1000); 
+                }
+            });
+        }
+        });
+        
+        
+        $(".un_featured").click(function(){
+            if(!$(".innercheckbox").is(':checked')){
+                $("#un_che_un_featured_user_deletemsg").html("Please select at least one category.");
+                $("#un_che_un_featured_user_model").modal("show");
+            }else{
+                 $("#un_featured_user_deletemsg").html("Do you want to in-active selected category(ies)?");
+                 $("#un_featured_user_model").modal("show");
+            }
+        });
+        
+        $(document).on("click","#cnf2un_featured",function(){
+            var selectedmail=[];
+            $('input:checkbox.innercheckbox').each(function () {
+                var sThisVal = (this.checked ? $(this).val() : "");
+                if(sThisVal!=""){
+                    selectedmail.push(sThisVal);
+                }
+            });
+            //alert(selectedmail.length);
+            if(selectedmail.length > 0){
+            $.post("<?=BASE_URL?>admin/forum/inactivecat",{selectedmail:selectedmail},function(data,status){
+                var obj= $.parseJSON(data);
+            if(obj.status){
+                    $("#un_featured_user_deletemsg").empty().append(obj.message).addClass("alert alert-success fade in");
+                        setTimeout(function(){
+                            window.location.reload();
+                        }, 1000); 
+                }
+            });
+        }
+        });
+        
+        $(".delete").click(function(){
+            if(!$(".innercheckbox").is(':checked')){
+                $("#un_che_delete_user_deletemsg").html("Please select at least one email.");
+                $("#un_che_delete_user_model").modal("show");
+            }else{
+                 $("#delete_user_deletemsg").html("Do you want to delete selected email(s)?");
+                 $("#delete_user_model").modal("show");
+            }
+        });
+        
+        $(document).on("click","#cnf2delete",function(){
+            var selectedmail=[];
+            $('input:checkbox.innercheckbox').each(function () {
+                var sThisVal = (this.checked ? $(this).val() : "");
+                if(sThisVal!=""){
+                    selectedmail.push(sThisVal);
+                }
+            });
+            //alert(selectedmail.length);
+            if(selectedmail.length > 0){
+            $.post("<?=BASE_URL?>admin/newsletter/deletecat",{selectedmail:selectedmail},function(data,status){
+                var obj= $.parseJSON(data);
+            if(obj.status){
+                    $("#delete_user_deletemsg").empty().append(obj.message).addClass("alert alert-success fade in");
+                        setTimeout(function(){
+                            window.location.reload();
+                        }, 1000); 
+                }
+            });
+        }
+        });
+        
+        $(document).on("click",".send",function(){
+            
+            var image =$("#image").val().trim(); 
+              var ext = image.split('.').pop().toLowerCase();
+              var allowed_ext=['jpg','png','jpeg'];
+              //alert(jQuery.inArray(ext, allowed_ext) == -1);
+              var check = jQuery.inArray(ext, allowed_ext) !== -1;
+              //var flag=1;
+              if(!check){
+                 
+                  $("#image1_error").html("Only jpg|png|jpeg Allowed");
+                    $("#image_error").parent().addClass("has-error");
+                    return false;
+              }
+              
+               if(image!=''){
+                   
+                    var file_size = $('#file')[0].files[0].size;
+                    if(file_size<=0){
+                        $("#image1_error").html("This file is corrupted. So you can not upload this file.");
+                        $("#image_error").parent().addClass("has-error");
+                        return false;
+                    }
+                    
+                    if(file_size>4096000) {
+                        
+                        $("#image1_error").html("File size is greater than 4MB");
+                        $("#image_error").parent().addClass("has-error");
+                        return false;
+                    }
+                }
+                
+            if(!$(".innercheckbox").is(':checked')){
+                
+                $("#un_che_sendmsg_user_deletemsg").html("Please select at least one email.");
+                $("#un_che_sendmsg_user_model").modal("show");
+                return false;
+            }
+            
+              $("#sendmail").submit();
+        });
+        
+        
+    });
+</script>
+
+
+<script>
+    //var $j = jQuery.noConflict();
+    $(function(){
+        $( "#from" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat:'yy-mm-dd',
+            autoclose:true,
+            onSelect:function(selected){
+                var dt = new Date(selected);
+            dt.setDate(dt.getDate());
+            $("#to").datepicker("option", "minDate", dt);
+            }
+        });
+        $( "#to" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat:'yy-mm-dd',
+            autoclose:true,
+            onSelect:function(selected){
+                var dt = new Date(selected);
+            dt.setDate(dt.getDate());
+            $("#from").datepicker("option", "maxDate", dt);
+            }
+        });
+    });
+</script>
