@@ -253,7 +253,7 @@
                         <div class="col-sm-9">
                             <select class="form-control" id="state" name="state">
                                 <option value="">-Select State-</option>
-                                <option value="1" selected>test1</option>
+                                <option value="1" selected>test</option>
                             </select>
                         </div>
                         <span class="text-danger" id="state_error"></span>
