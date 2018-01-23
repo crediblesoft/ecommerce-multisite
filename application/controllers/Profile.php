@@ -336,10 +336,86 @@ class Profile extends MY_Controller {
         $datatheme=array('val'=>array('theam_id'),'table'=>'db_theem','where'=>array('user_id'=>$this->userid));
         $log['theme']=$this->common->getdata($datatheme);
         $log['states']=$this->get_states();
+        $log['locations']=$this->get_location($userid, $log['storedata']);
+
         $this->load->view('userlogin/profile/vw_edit_profile_seller',$log);
         $this->load->view('include/footer');
     }
 
+    public function get_location($userid, $store_info=null){
+        $result = parent::get_location($userid);
+        $store_info_item = !is_null($store_info) ? $store_info['rows'][0]: null;
+        if(!is_null($store_info_item) && !empty($store_info_item->business_name)){
+            $main_location = array(
+                "id" => 0,
+                "location_name" => "Main Location",
+                "business_name" => $store_info_item->business_name,
+                "address" => $store_info_item->address,
+                "city" => $store_info_item->city,
+                "state" => $store_info_item->state,
+                "zip_code" => $store_info_item->zip,
+                "phone" => $store_info_item->phone,
+                "onsite_vendor" => 1,
+                "virtual_vendor" => 1,
+                "status" => 1
+            );
+            $main_location = json_decode(json_encode($main_location), FALSE);
+            array_unshift($result['rows'],$main_location);
+            $result['res'] = true;
+        }
+        return $result;
+    }
+
+    public function updateLocation(){
+        $userid = $userid=$this->session->userdata('user_id');
+        $location_info=$this->input->post("location_info");
+        $location_id = $location_info['id'];
+        $location_info['user_id'] = $userid;
+        $result = false;
+
+        if(!empty($location_id))
+        {
+            if($location_id == 0 ){
+                $this->session->set_flashdata("warning","Main Location is not editable.");
+                echo json_encode(['status'=>TRUE,'success'=>TRUE]);
+                die;
+            }
+            $updatedata=array(
+                'table'=>'user_location',
+                'where'=>array('id'=>$location_id),
+                'val'=>$location_info
+                );
+            $result=$this->common->update_data($updatedata);
+        }else{
+            unset($location_info['id']);
+            $adddata=array(
+                'table'=>'user_location',
+                'val'=>$location_info
+                );
+            $result=$this->common->add_data($adddata);
+        }
+
+        if($result)
+        {
+            $this->session->set_flashdata("sucess","Your Location has been updated.");
+        }else{
+            $this->session->set_flashdata("warning","Location update failed.");
+        }
+        $this->session->set_flashdata("tab","location");
+        echo json_encode(['status'=>TRUE,'success'=>$result]);
+        die;
+    }
+
+    public function deleteLocation(){
+        $location_id=$this->input->post("id");
+        $deletedata=array(
+            'table'=>'user_location',
+            'where'=>array('id'=>$location_id)
+        );
+        $result=$this->common->delete_data($deletedata);
+        echo json_encode(['status'=>TRUE,'success'=>$result]);
+        die;
+    }
     public function update(){
         $basic_info=$this->input->post("basic_info");
 
