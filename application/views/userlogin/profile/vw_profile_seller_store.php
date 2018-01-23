@@ -40,14 +40,16 @@
                 <div class="col-sm-12 col-xs-12">
 
                 <div id="wizard">
-			<ol>
-				<li>Basic Information</li>
-        <li>Selected Theme</li>
-        <li>Store Information</li>
-        <li>Locations</li>
-        <li>Cost &amp; Fee's</li>
-        <li>Social Media</li>
-			</ol>
+        		<ul>
+        			<li>Basic Information</li>
+                    <li>Selected Theme</li>
+                    <li>Store Information</li>
+                    <li>Locations</li>
+                    <div class="next-line">
+                        <li>Cost &amp; Fee's</li>
+                        <li>Social Media</li>
+                    </div>
+                </ul>
 			<div>
 				<?php if ($res) {
     ?>
@@ -249,12 +251,12 @@
                   <td class="profile_heading">Location Name</td>
                   <td>:</td>
                   <td>
-                    <div class="form-group">
+                    <div class="form-group row">
                         <div class="col-sm-9">
-                            <select class="form-control" id="state" name="state">
-                                <option value="">-Select State-</option>
-                                <option value="1" selected>test</option>
-                            </select>
+                          <select class="form-control" id="state" name="state">
+                            <option value="">-Select State-</option>
+                            <option value="1" selected>test</option>
+                          </select>
                         </div>
                         <span class="text-danger" id="state_error"></span>
                     </div>
@@ -262,67 +264,55 @@
                 </tr>
 
                 <tr>
-                  <td class="profile_heading">Subscription</td>
+                  <td class="profile_heading">Business Name</td>
                   <td>:</td>
-                  <td><?php if ($userdata->paid) {
-                  echo "Premium User";
-              } else {
-                  echo "Free User";
-              } ?></td>
-                </tr>
-
-                <tr>
-                  <td class="profile_heading">Username</td>
-                  <td>:</td>
-                  <td><?=$userdata->username?></td>
-                </tr>
-
-                <tr>
-                  <td class="profile_heading">First Name</td>
-                  <td>:</td>
-                  <td><?=$userdata->f_name?></td>
-                </tr>
-
-                <tr>
-                  <td class="profile_heading">Last Name</td>
-                  <td>:</td>
-                  <td><?=$userdata->l_name?></td>
-                </tr>
-
-                <tr>
-                  <td class="profile_heading">Email</td>
-                  <td>:</td>
-                  <td><?=$userdata->email_id?></td>
-                </tr>
-
-                <tr>
-                  <td class="profile_heading">Mobile</td>
-                  <td>:</td>
-                  <td><?=$userdata->mobile_no?></td>
+                  <td>
+                    <input type="text" name="" value="">
+                  </td>
                 </tr>
 
                 <tr>
                   <td class="profile_heading">Address</td>
                   <td>:</td>
-                  <td><?=$userdata->address1?></td>
+                  <td>
+                    <textarea class="address-input" name="name" rows="5"></textarea>
+                  </td>
                 </tr>
 
                 <tr>
                   <td class="profile_heading">City</td>
                   <td>:</td>
-                  <td><?=$userdata->city?></td>
+                  <td><?=$userdata->f_name?></td>
                 </tr>
 
                 <tr>
                   <td class="profile_heading">State</td>
                   <td>:</td>
-                  <td><?=$userdata->state?></td>
+                  <td><?=$userdata->l_name?></td>
                 </tr>
 
                 <tr>
                   <td class="profile_heading">Zip Code</td>
                   <td>:</td>
-                  <td><?=$userdata->zip?></td>
+                  <td><?=$userdata->email_id?></td>
+                </tr>
+
+                <tr>
+                  <td class="profile_heading">Phone</td>
+                  <td>:</td>
+                  <td><?=$userdata->mobile_no?></td>
+                </tr>
+
+                <tr>
+                  <td class="profile_heading">Accepting New Vendors</td>
+                  <td>:</td>
+                  <td> <input type="checkbox" name="" value=""> </td>
+                </tr>
+
+                <tr>
+                  <td class="profile_heading">Accepting New Virtual Vendors</td>
+                  <td>:</td>
+                  <td> <input type="checkbox" name="" value=""> </td>
                 </tr>
 
           </table>

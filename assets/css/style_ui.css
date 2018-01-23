@@ -951,11 +951,11 @@ margin-top: -8px !important;
     font-weight: bold;
     font-size: 25px;
     margin-bottom: 10px;
-    
+
 }
 
 
-.profile_heading{font-weight: 700 !important; font-size: 13px !important; }
+.profile_heading{font-weight: 700 !important; font-size: 13px !important; width: 150px;}
 
 
 .contant-head2{
@@ -1170,6 +1170,10 @@ text-decoration: none;
     right: -19px !important;
 }
 
+.bwizard-steps .next-line {
+    margin-top: 5px;
+}
+
 
 
 .remove{
@@ -1252,8 +1256,15 @@ text-decoration: none;
     border-right: 1px solid #fff;
 }
 
-
-
+.profile-location-edit{
+    position: relative;
+}
+.profile-location-edit input{
+  width: 100%;
+}
+.profile-location-edit .address-input{
+  width: 100%;
+}
 
 /******************new forum list***********/
 
