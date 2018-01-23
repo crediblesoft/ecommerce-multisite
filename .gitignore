@@ -7,3 +7,4 @@ error_log
 htaccess_DDB010218
 /application/config/database
 /assets/image
+.vscode
