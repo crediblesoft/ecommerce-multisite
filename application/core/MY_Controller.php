@@ -416,6 +416,12 @@ class MY_Controller extends CI_Controller {
         $data=array("table"=>"statelist","val"=>array(),"where"=>array("status"=>"1"));
         return $log=$this->common->getdata($data);
     }
+
+    public function get_location($user_id)
+    {
+        $data=array('val'=>array('*'),'table'=>'user_location','where'=>array('user_id'=>$user_id));
+        return $log=$this->common->getdata($data);
+    }
     
     
     public function get_user_store($val=array(),$where=array()){
