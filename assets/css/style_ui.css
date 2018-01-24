@@ -1256,6 +1256,8 @@ text-decoration: none;
     border-right: 1px solid #fff;
 }
 
+
+/**  Location Style   **/
 .profile-location-edit{
     position: relative;
 }
@@ -1264,6 +1266,16 @@ text-decoration: none;
 }
 .profile-location-edit .address-input{
   width: 100%;
+}
+.cost-fee-section span.title{
+    display: block;
+    text-align: center;
+    color: #3b8cd6;
+    font-weight: bold;
+    font-size: 21px;
+}
+.cost-fee-section .fees-div input.fee{
+    width: 20px;
 }
 
 /******************new forum list***********/
