@@ -1,2 +1,2 @@
 # ecommerce-multisite
-Multi vendor ecommerce website built with Cakephp
+Multi vendor ecommerce website built with Codeigniter
