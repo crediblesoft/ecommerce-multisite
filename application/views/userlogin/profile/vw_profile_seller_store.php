@@ -44,8 +44,8 @@
         			<li>Basic Information</li>
                     <li>Selected Theme</li>
                     <li>Store Information</li>
-                    <li>Locations</li>
                     <div class="next-line">
+                        <li>Locations</li>
                         <li>Cost &amp; Fee's</li>
                         <li>Social Media</li>
                     </div>
@@ -253,21 +253,20 @@
                   <td>
                     <div class="form-group row">
                         <div class="col-sm-9">
-                          <select class="form-control" id="state" name="state">
-                            <option value="">-Select State-</option>
-                            <option value="1" selected>test</option>
-                          </select>
+                            <select class="form-control" id="location_list" name="location_list">
+                                <?php if($locations['res']){foreach($locations['rows'] as $location_item){ ?>
+                                <option value="<?php echo $location_item->id;?>" <?php if($location_item->id == $locations['rows'][0]->id){echo "selected";}?> ><?php echo $location_item->location_name;?></option>
+                                <?php }} ?>
+                            </select>
                         </div>
-                        <span class="text-danger" id="state_error"></span>
                     </div>
                   </td>
                 </tr>
-
                 <tr>
                   <td class="profile_heading">Business Name</td>
                   <td>:</td>
                   <td>
-                    <input type="text" name="" value="">
+                      <span id="location_business_name"></span>
                   </td>
                 </tr>
 
@@ -275,44 +274,64 @@
                   <td class="profile_heading">Address</td>
                   <td>:</td>
                   <td>
-                    <textarea class="address-input" name="name" rows="5"></textarea>
+                      <span id="location_address"></span>
                   </td>
                 </tr>
 
                 <tr>
                   <td class="profile_heading">City</td>
                   <td>:</td>
-                  <td><?=$userdata->f_name?></td>
+                  <td>
+                      <span id="location_city"></span>
+                  </td>
                 </tr>
 
                 <tr>
                   <td class="profile_heading">State</td>
                   <td>:</td>
-                  <td><?=$userdata->l_name?></td>
+                  <td>
+                      <span id="location_state"></span>
+                  </td>
                 </tr>
 
                 <tr>
                   <td class="profile_heading">Zip Code</td>
                   <td>:</td>
-                  <td><?=$userdata->email_id?></td>
+                  <td>
+                      <span id="location_zipcode"></span>
+                  </td>
                 </tr>
 
                 <tr>
                   <td class="profile_heading">Phone</td>
                   <td>:</td>
-                  <td><?=$userdata->mobile_no?></td>
+                  <td>
+                      <span id="location_phone"></span>
+                  </td>
                 </tr>
 
                 <tr>
                   <td class="profile_heading">Accepting New Vendors</td>
                   <td>:</td>
-                  <td> <input type="checkbox" name="" value=""> </td>
+                  <td>
+                      <input type="checkbox" class="form-check-input" id="location_onsite_vendor" value="" name="location_onsite_vendor">
+                  </td>
                 </tr>
 
                 <tr>
                   <td class="profile_heading">Accepting New Virtual Vendors</td>
                   <td>:</td>
-                  <td> <input type="checkbox" name="" value=""> </td>
+                  <td>
+                      <input type="checkbox" class="form-check-input" id="location_virtual_vendor" value="" name="location_virtual_vendor">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="profile_heading">Status</td>
+                  <td>:</td>
+                  <td>
+                      <span id="location_status"></span>
+                  </td>
                 </tr>
 
           </table>
@@ -436,7 +455,35 @@
 	</script>
 
 <script>
+    function update_location_item(location_item)
+    {
+        $("#location_name").html(location_item.location_name);
+        $("#location_business_name").html(location_item.business_name);
+        $("#location_address").html(location_item.address);
+        $("#location_city").html(location_item.city);
+        $("#location_state").html(location_item.state);
+        $("#location_zipcode").html(location_item.zip_code);
+        $("#location_phone").html(location_item.phone);
+        $("#location_onsite_vendor").prop('checked',location_item.onsite_vendor == '1'? true: false);
+        $("#location_virtual_vendor").prop('checked', location_item.virtual_vendor == '1'? true: false);
+        $("#location_status").html(location_item.status == '1'? 'Active': 'Inactive');
+    }
     $(document).ready(function(){
+
+        var locations = <?=json_encode($locations['rows']);?>;
+        if(locations && locations.length)
+        {
+            update_location_item(locations[0])
+        }
+
+        $("#location_list").on('change',function(){
+            var location_id = $(this).val();
+            var location_item = locations.find(function(item){
+                return item.id == location_id;
+            });
+            update_location_item(location_item);
+        });
+
         $("#store-info").click(function(){
             var business_name = $("#business-name").val().trim();
             var contact_person = $("#contact-person").val().trim();

@@ -55,8 +55,8 @@
                                 <?php if($userdata->store_info){ ?>
                                 <li id="business-info2">Selected Theme</li>
                                 <li id="business-info1">Store Information</li>
-                                <li id="location-info-wizard">Locations</li>
                                 <div class="next-line">
+                                    <li id="location-info-wizard">Locations</li>
                                     <li id="fee-info">Cost &amp; Fee's</li>
                                     <li id="social-info1">Social Media</li>
                                     <li id="paypal-inof">Paypal Information</li>
@@ -404,7 +404,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-3" for="location_name">Location Name</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="location_name" value="<?=$storedata->city?>" name="location_name" placeholder="Business Name">
+                                        <input type="text" class="form-control" id="location_name" value="" name="location_name" placeholder="Business Name">
                                         <?php if(form_error('location_name')!='') echo form_error('location_name','<div class="text-danger err">','</div>'); ?>
                                         <span class="text-danger" id="location_name_error"></span>
                                     </div>
@@ -414,7 +414,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-3" for="location_business_name">Business Name</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="location_business_name" value="<?=$storedata->city?>" name="location_business_name" placeholder="Business Name">
+                                        <input type="text" class="form-control" id="location_business_name" value="" name="location_business_name" placeholder="Business Name">
                                         <?php if(form_error('location_business_name')!='') echo form_error('location_business_name','<div class="text-danger err">','</div>'); ?>
                                         <span class="text-danger" id="location_business_name_error"></span>
                                     </div>
@@ -424,7 +424,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-3" for="location_address">Address</label>
                                     <div class="col-sm-9">
-                                        <textarea class="form-control" id="location_address" value="<?=$storedata->city?>" name="location_address" placeholder="Address"></textarea>
+                                        <textarea class="form-control" id="location_address" value="" name="location_address" placeholder="Address"></textarea>
                                         <?php if(form_error('location_address')!='') echo form_error('location_address','<div class="text-danger err">','</div>'); ?>
                                         <span class="text-danger" id="location_address_error"></span>
                                     </div>
@@ -433,7 +433,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-3" for="location_city">City</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="location_city" value="<?=$storedata->city?>" name="location_city" placeholder="City">
+                                        <input type="text" class="form-control" id="location_city" value="" name="location_city" placeholder="City">
                                         <?php if(form_error('location_city')!='') echo form_error('location_city','<div class="text-danger err">','</div>'); ?>
                                         <span class="text-danger" id="location_city_error"></span>
                                     </div>
@@ -456,7 +456,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-3" for="location_zipcode">Zip Code</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="location_zipcode" value="" name="location_zipcode" placeholder="Zip Code" onkeyup="checknumber(this.id,this.value)">
+                                        <input type="text" class="form-control" id="location_zipcode" value="" name="location_zipcode" placeholder="Zip Code">
                                         <?php if(form_error('location_zipcode')!='') echo form_error('location_zipcode','<div class="text-danger err">','</div>'); ?>
                                         <span class="text-danger" id="location_zipcode_error"></span>
                                     </div>
@@ -465,7 +465,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-3" for="location_phone">Phone</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="location_phone" value="" name="location_phone" placeholder="Phone" onkeyup="checknumber(this.id,this.value)">
+                                        <input type="text" class="form-control" id="location_phone" value="" name="location_phone" placeholder="Phone">
                                         <?php if(form_error('location_phone')!='') echo form_error('location_phone','<div class="text-danger err">','</div>'); ?>
                                         <span class="text-danger" id="location_phone_error"></span>
                                     </div>
@@ -499,6 +499,320 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="cost-fee-section">
+                                <div class="cs-border-bottom">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3" for="location_list">Location Name</label>
+                                        <div class="col-sm-6">
+                                            <select class="form-control" id="location_list" name="location_list">
+                                                <option value="">-------Select Location-------</option>
+                                                <?php if($locations['res']){foreach($locations['rows'] as $location_item){ ?>
+                                                <option value="<?php echo $location_item->id;?>" <?php if($location_item->id == $locations['rows'][0]->id){echo "selected";}?> ><?php echo $location_item->location_name;?></option>
+                                                <?php }} ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cost-fee-section-div1">
+                                    <div class="fees-div">
+                                        <span class="title cs-border">On-Site Vendor</span>
+                                        <div class="cs-border">
+                                            <div class="fee-inner-wrapper">
+                                                <div class="fee-input-wrapper">
+                                                    <span>$</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> / DAY</span>
+                                                </div>
+                                                <div class="fee-input-wrapper">
+                                                    <span>For</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> / DAYS</span>
+                                                </div>
+                                            </div>
+                                            <div class="fee-checkbox-inner-wrapper">
+                                                <div class="fee-checkbox-wrapper">
+                                                    <input type="checkbox" class="form-check-input" id="day_activate" value="" name="day_activate">
+                                                    <label for="day_activate">Activate</label>
+                                                </div>
+                                                <div class="fee-checkbox-wrapper">
+                                                    <input type="checkbox" class="form-check-input" id="day_auto_renew" value="" name="day_auto_renew">
+                                                    <label for="day_auto_renew">Auto-Renew</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cs-border">
+                                            <div class="fee-inner-wrapper">
+                                                <div class="fee-input-wrapper">
+                                                    <span>$</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> / WEEK</span>
+                                                </div>
+                                                <div class="fee-input-wrapper">
+                                                    <span>For</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> / WEEKS</span>
+                                                </div>
+                                            </div>
+                                            <div class="fee-checkbox-inner-wrapper">
+                                                <div class="fee-checkbox-wrapper">
+                                                    <input type="checkbox" class="form-check-input" id="day_activate" value="" name="day_activate">
+                                                    <label for="day_activate">Activate</label>
+                                                </div>
+                                                <div class="fee-checkbox-wrapper">
+                                                    <input type="checkbox" class="form-check-input" id="day_auto_renew" value="" name="day_auto_renew">
+                                                    <label for="day_auto_renew">Auto-Renew</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cs-border">
+                                            <div class="fee-inner-wrapper">
+                                                <div class="fee-input-wrapper">
+                                                    <span>$</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> / MONTH</span>
+                                                </div>
+                                                <div class="fee-input-wrapper">
+                                                    <span>For</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> / MONTHS</span>
+                                                </div>
+                                            </div>
+                                            <div class="fee-checkbox-inner-wrapper">
+                                                <div class="fee-checkbox-wrapper">
+                                                    <input type="checkbox" class="form-check-input" id="day_activate" value="" name="day_activate">
+                                                    <label for="day_activate">Activate</label>
+                                                </div>
+                                                <div class="fee-checkbox-wrapper">
+                                                    <input type="checkbox" class="form-check-input" id="day_auto_renew" value="" name="day_auto_renew">
+                                                    <label for="day_auto_renew">Auto-Renew</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="cs-border">
+                                            <div class="fee-checkbox-wrapper">
+                                                <input type="checkbox" class="form-check-input" id="day_activate" value="" name="day_activate">
+                                                <label for="day_activate">Same for All Location</label>
+                                            </div>
+                                        </div>
+
+                                        <span class="title cs-border">Commission</span>
+                                        <div class="cs-border">
+                                            <div class="fee-inner-wrapper p-20">
+                                                <div class="fee-input-wrapper">
+                                                    <span>$</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> %</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cs-border">
+                                            <div class="fee-inner-wrapper p-20">
+                                                <div class="fee-input-wrapper">
+                                                    <span>$</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> Minumum</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cs-border">
+                                            <div class="fee-inner-wrapper p-20">
+                                                <div class="fee-input-wrapper">
+                                                    <span>$</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> Maximum</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <span class="title cs-border">Other Changes</span>
+                                        <div class="cs-border">
+                                            <div class="fee-inner-wrapper">
+                                                <div class="fee-input-wrapper">
+                                                    <span>$</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> Initial Payment</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cs-border">
+                                            <div class="fee-inner-wrapper">
+                                                <div class="fee-input-wrapper">
+                                                    <span>$</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> / Per Transaction</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <span class="title cs-border">Application</span>
+                                        <div class="cs-border">
+                                            <div class="fee-checkbox-wrapper">
+                                                <input type="checkbox" class="form-check-input" id="day_activate" value="" name="day_activate">
+                                                <label for="day_activate">Application Required for On-Site Vendor</label>
+                                                <div class="fileupload-div">
+                                                    <div class="fileUpload btn btn-success">
+                                                        <span>Upload</span>
+                                                        <input type="file" class="upload uploadBtn" />
+                                                    </div>
+                                                    <input class="uploadFile" placeholder="(Maximum 4MB file size allowed)" disabled="disabled" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fees-div">
+                                        <span class="title cs-border-bottom">Virtual Vendor</span>
+                                        <div class="cs-border-bottom">
+                                            <div class="fee-inner-wrapper">
+                                                <div class="fee-input-wrapper">
+                                                    <span>$</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> / DAY</span>
+                                                </div>
+                                                <div class="fee-input-wrapper">
+                                                    <span>For</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> / DAYS</span>
+                                                </div>
+                                            </div>
+                                            <div class="fee-checkbox-inner-wrapper">
+                                                <div class="fee-checkbox-wrapper">
+                                                    <input type="checkbox" class="form-check-input" id="day_activate" value="" name="day_activate">
+                                                    <label for="day_activate">Activate</label>
+                                                </div>
+                                                <div class="fee-checkbox-wrapper">
+                                                    <input type="checkbox" class="form-check-input" id="day_auto_renew" value="" name="day_auto_renew">
+                                                    <label for="day_auto_renew">Auto-Renew</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cs-border-bottom">
+                                            <div class="fee-inner-wrapper">
+                                                <div class="fee-input-wrapper">
+                                                    <span>$</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> / WEEK</span>
+                                                </div>
+                                                <div class="fee-input-wrapper">
+                                                    <span>For</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> / WEEKS</span>
+                                                </div>
+                                            </div>
+                                            <div class="fee-checkbox-inner-wrapper">
+                                                <div class="fee-checkbox-wrapper">
+                                                    <input type="checkbox" class="form-check-input" id="day_activate" value="" name="day_activate">
+                                                    <label for="day_activate">Activate</label>
+                                                </div>
+                                                <div class="fee-checkbox-wrapper">
+                                                    <input type="checkbox" class="form-check-input" id="day_auto_renew" value="" name="day_auto_renew">
+                                                    <label for="day_auto_renew">Auto-Renew</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cs-border-bottom">
+                                            <div class="fee-inner-wrapper">
+                                                <div class="fee-input-wrapper">
+                                                    <span>$</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> / MONTH</span>
+                                                </div>
+                                                <div class="fee-input-wrapper">
+                                                    <span>For</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> / MONTHS</span>
+                                                </div>
+                                            </div>
+                                            <div class="fee-checkbox-inner-wrapper">
+                                                <div class="fee-checkbox-wrapper">
+                                                    <input type="checkbox" class="form-check-input" id="day_activate" value="" name="day_activate">
+                                                    <label for="day_activate">Activate</label>
+                                                </div>
+                                                <div class="fee-checkbox-wrapper">
+                                                    <input type="checkbox" class="form-check-input" id="day_auto_renew" value="" name="day_auto_renew">
+                                                    <label for="day_auto_renew">Auto-Renew</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="cs-border-bottom">
+                                            <div class="fee-checkbox-wrapper">
+                                                <input type="checkbox" class="form-check-input" id="day_activate" value="" name="day_activate">
+                                                <label for="day_activate">Same for All Location</label>
+                                            </div>
+                                        </div>
+
+                                        <span class="title cs-border-bottom">Commission</span>
+                                        <div class="cs-border-bottom">
+                                            <div class="fee-inner-wrapper p-20">
+                                                <div class="fee-input-wrapper">
+                                                    <span>$</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> %</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cs-border-bottom">
+                                            <div class="fee-inner-wrapper p-20">
+                                                <div class="fee-input-wrapper">
+                                                    <span>$</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> Minumum</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cs-border-bottom">
+                                            <div class="fee-inner-wrapper p-20">
+                                                <div class="fee-input-wrapper">
+                                                    <span>$</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> Maximum</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <span class="title cs-border-bottom">Other Changes</span>
+                                        <div class="cs-border-bottom">
+                                            <div class="fee-inner-wrapper">
+                                                <div class="fee-input-wrapper">
+                                                    <span>$</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> Initial Payment</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cs-border-bottom">
+                                            <div class="fee-inner-wrapper">
+                                                <div class="fee-input-wrapper">
+                                                    <span>$</span>
+                                                    <input type="number" class="form-control fee" id="location_zipcode" value="" name="location_zipcode" min=0>
+                                                    <span> / Per Transaction</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <span class="title cs-border-bottom">Application</span>
+                                        <div class="cs-border-bottom">
+                                            <div class="fee-checkbox-wrapper">
+                                                <input type="checkbox" class="form-check-input" id="day_activate" value="" name="day_activate">
+                                                <label for="day_activate">Application Required for On-Site Vendor</label>
+                                                <div class="fileupload-div">
+                                                    <div class="fileUpload btn btn-success">
+                                                        <span>Upload</span>
+                                                        <input type="file" class="upload uploadBtn" />
+                                                    </div>
+                                                    <input class="uploadFile" placeholder="(Maximum 4MB file size allowed)" disabled="disabled" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix" style="padding: 20px;">
+                                    <button type="submit" id="store-info" class="btn btn-success pull-right">Update</button>
+                                </div>
+                            </div>
+
                             <div>
                                 <div class="text-danger error-msg"></div>
                                 <input type="hidden" value="<?php if($socialdata['res']){ echo count($socialdata['rows']); }else{echo '1';} ?>" id="no_of_social">
@@ -657,6 +971,10 @@ class="active" aria-selected="true"
 </script>
 
 <script>
+    $(".uploadBtn").on('change',function(){
+        var filename = $(this).context.files[0].name;
+        $(this).parents('.fileupload-div').find('.uploadFile').val(filename);
+    })
     function update_location_item(location_item)
     {
         $("#location_name").prop('disabled', false);
@@ -699,7 +1017,7 @@ class="active" aria-selected="true"
             $("#location_onsite_vendor").prop('checked',location_item.onsite_vendor == '1'? true: false);
             $("#location_virtual_vendor").prop('checked', location_item.virtual_vendor == '1'? true: false);
 
-            $("#location_onsite_vendor").prop('checked',location_item.onsite_vendor == '1'? true: false);
+            $("#location_status").val(location_item.status);
 
         }else{
             $("#location_list").val('');
@@ -717,14 +1035,14 @@ class="active" aria-selected="true"
     }
     $(document).ready(function(){
         /* Location Handle functions */
-        $("#location-info-wizard").click();
         var tab = '<?=$this->session->flashdata("tab");?>';
-        if(tab == 'tab')
+        if(tab == 'location')
         {
             $("#location-info-wizard").click();
         }
+        $("#fee-info").click();
         var locations = <?=json_encode($locations['rows']);?>;
-        if(locations.length)
+        if(locations && locations.length)
         {
             update_location_item(locations[0])
         }
