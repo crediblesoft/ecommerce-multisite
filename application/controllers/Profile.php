@@ -209,6 +209,8 @@ class Profile extends MY_Controller {
                 );
                 $log['userbusinesstype']=$this->common->multijoin($comment2,$multijoin2);
 
+                $log['locations']=$this->get_location($userid, $log['storedata']);
+
                 //print_r($log['userbusinesstype']);exit;
 
                 $this->load->view('userlogin/profile/vw_profile_seller_store',$log);
@@ -343,7 +345,15 @@ class Profile extends MY_Controller {
     }
 
     public function get_location($userid, $store_info=null){
-        $result = parent::get_location($userid);
+        $result = array(
+            'res' => false,
+            'rows' => []
+        );
+        $locations = parent::get_location($userid);
+        if(!is_null($locations['rows'])){
+            $result['rows'] = $locations['rows'];
+        }
+        $result = is_null($result) ? [] : $result;
         $store_info_item = !is_null($store_info) ? $store_info['rows'][0]: null;
         if(!is_null($store_info_item) && !empty($store_info_item->business_name)){
             $main_location = array(
